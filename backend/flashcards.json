@@ -1,0 +1,64 @@
+{
+  "flashcards": [
+    {
+      "id": "76fded80-ca1a-46a3-934b-4f084787dee0",
+      "title": "Componente React",
+      "description": "Representa código reutilizável pelo React. Em regra, deve começar com letra maiúscula. Pode ser customizável através de props",
+      "showTitle": true
+    },
+    {
+      "id": "9dbcda90-1283-461b-a77d-7d19bfd61c30",
+      "title": "Efeitos colaterais",
+      "description": "Também conhecido como 'side effects'. Representa tudo o que o React não controla diretamente. Bons exemplos são a manipulação manual do DOM e requisições HTTP.",
+      "showTitle": true
+    },
+    {
+      "id": "0b075e96-6663-4e8c-8e36-63e58edb7bb1",
+      "title": "Estado",
+      "description": "Também conhecido como 'state'. Pode ser representando por 'dados que mudam com o tempo' e que também podem ser manipulados pelos usuários, geralmente através de formulários, e também por API's, outros componentes, etc.",
+      "showTitle": true
+    },
+    {
+      "id": "73a0761b-86d4-49c6-ba02-535253e019a1",
+      "title": "Function Components",
+      "description": "Componentes baseados em função. São amplamente utilizados atualmente em detrimento às Class Components, que aos poucos podem se tornar obsoletas.",
+      "showTitle": true
+    },
+    {
+      "id": "874aa77e-54e8-43f3-8436-3a4dbd4b7b8d",
+      "title": "Hooks",
+      "description": "Estruturas que são acopladas às funções para aumentar o poder de componentes React. Podem permitir a utilização de estado e gerenciamento de efeitos colaterais, por exemplo.",
+      "showTitle": true
+    },
+    {
+      "id": "6d9f84df-01fd-44c1-b2cf-f3f4fb106b43",
+      "title": "JSX",
+      "description": "JavaScript and XML. Linguagem de marcação que pode ser utilizada para a criação de componentes React de forma mais declarativa. É bem semelhante ao HTML.",
+      "showTitle": true
+    },
+    {
+      "id": "b5eb94f8-9267-4997-9241-cbd3e87b49c4",
+      "title": "React",
+      "description": "Biblioteca criada pelo Facebook para renderização otimizada. Pode ser utilizada em diversas plataformas como web, mobile e Realidade Virtual.",
+      "showTitle": true
+    },
+    {
+      "id": "b6cf0be0-a78c-4b97-82e6-65bcb36f5247",
+      "title": "useEffect",
+      "description": "Hook nativo do React para lidar com efeitos colaterais.",
+      "showTitle": true
+    },
+    {
+      "id": "ef48f231-e151-4b83-909f-859790717b9a",
+      "title": "useState",
+      "description": "Hook nativo do React que permite o gerenciamento de estado da aplicação e de componentes.",
+      "showTitle": true
+    },
+    {
+      "id": "d5dc4af7-a915-4571-88c2-66ddb9cb6fd5",
+      "title": "Virtual DOM",
+      "description": "Estrutura utilizada pelo React para manipulação do DOM em memória. Permite a atualização do DOM real somente onde necessário, o que pode garantir uma melhor performance da aplicação.",
+      "showTitle": true
+    }
+  ]
+}
