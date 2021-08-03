@@ -12,6 +12,9 @@ import Loading from '../components/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 const FlashCardsPage = () => {
   const [error, setError] = useState('');
   useEffect(() => {
@@ -88,41 +91,61 @@ const FlashCardsPage = () => {
         </div>
       ) : (
         <Main>
-          <div className="text-center mb-4">
-            <Button onButtonClick={handleShuffleCards}>Embaralhar cards</Button>
-          </div>
+          <Tabs>
+            <TabList>
+              <Tab>Listagem</Tab>
+              <Tab>Cadastro</Tab>
+              <Tab>Estudo</Tab>
+            </TabList>
 
-          <div className="flex items-center justify-center space-x-2 my-4">
-            <RadioButton
-              id="radioButtonShowTitle"
-              name="showInfo"
-              checked={radioButtonShowTitle}
-              onRadioButtonChange={handleShowTitleRadioButtonChange}
-            >
-              Mostrar título
-            </RadioButton>
-            <RadioButton
-              id="radioButtonShowDescription"
-              name="showInfo"
-              checked={!radioButtonShowTitle}
-              onRadioButtonChange={handleShowDescriptionRadioButtonChange}
-            >
-              Mostrar descrição
-            </RadioButton>
-          </div>
+            <TabPanel>
+              <h2>Listagem Content</h2>
+            </TabPanel>
 
-          <FlashCards>
-            {allCards.map(({ id, title, description, showTitle }) => (
-              <FlashCard
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                showFlashCardTitle={showTitle}
-                onToggleFlashCard={handleToggleFlashCard}
-              />
-            ))}
-          </FlashCards>
+            <TabPanel>
+              <h2>Cadastro Content</h2>
+            </TabPanel>
+
+            <TabPanel>
+              <div className="text-center mb-4">
+                <Button onButtonClick={handleShuffleCards}>
+                  Embaralhar cards
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-center space-x-2 my-4">
+                <RadioButton
+                  id="radioButtonShowTitle"
+                  name="showInfo"
+                  checked={radioButtonShowTitle}
+                  onRadioButtonChange={handleShowTitleRadioButtonChange}
+                >
+                  Mostrar título
+                </RadioButton>
+                <RadioButton
+                  id="radioButtonShowDescription"
+                  name="showInfo"
+                  checked={!radioButtonShowTitle}
+                  onRadioButtonChange={handleShowDescriptionRadioButtonChange}
+                >
+                  Mostrar descrição
+                </RadioButton>
+              </div>
+
+              <FlashCards>
+                {allCards.map(({ id, title, description, showTitle }) => (
+                  <FlashCard
+                    key={id}
+                    id={id}
+                    title={title}
+                    description={description}
+                    showFlashCardTitle={showTitle}
+                    onToggleFlashCard={handleToggleFlashCard}
+                  />
+                ))}
+              </FlashCards>
+            </TabPanel>
+          </Tabs>
         </Main>
       )}
     </>
