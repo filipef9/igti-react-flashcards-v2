@@ -52,9 +52,7 @@ const allFlashCards = [
       'Estrutura utilizada pelo React para manipulação do DOM em memória. Permite a atualização do DOM real somente onde necessário, o que pode garantir uma melhor performance da aplicação.',
   },
 ]
-  .map(item => {
-    return { id: uuid(), ...item, showTitle: true };
-  })
+  .map(item => ({ id: uuid(), ...item }))
   .sort((a, b) => a.title.localeCompare(b.title));
 
 async function start() {
