@@ -2,17 +2,51 @@ import FlashCard from '../components/FlashCard';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import FlashCards from '../components/FlashCards';
-import { allFlashCards } from '../data/allFlashCards';
 import Button from '../components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { helperShuffleArray } from '../helpers/arrayHelpers';
 import RadioButton from '../components/RadioButton';
+import { apiGetAllFlashCards } from '../services/flashcardService';
+import Loading from '../components/Loading';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FlashCardsPage = () => {
-  const [allCards, setAllCards] = useState(allFlashCards);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    if (!!error) {
+      toast.error('Oops! Algo deu errado!!!', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [error]);
+
+  const [allCards, setAllCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    apiGetAllFlashCards()
+      .then(flashCards => {
+        setAllCards(flashCards);
+        setTimeout(() => setLoading(false), 1000);
+      })
+      .catch(error => {
+        console.log('error:', error.message);
+        setAllCards([]);
+        setLoading(false);
+        setError(error.message);
+      });
+  }, []);
+
   const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
 
-  const handleButtonClick = () => {
+  const handleShuffleCards = () => {
     setAllCards(helperShuffleArray(allCards));
   };
 
@@ -45,43 +79,52 @@ const FlashCardsPage = () => {
   return (
     <>
       <Header>react-flash-cards-v1</Header>
-      <Main>
-        <div className="text-center mb-4">
-          <Button onButtonClick={handleButtonClick}>Embaralhar cards</Button>
-        </div>
 
-        <div className="flex items-center justify-center space-x-2 my-4">
-          <RadioButton
-            id="radioButtonShowTitle"
-            name="showInfo"
-            checked={radioButtonShowTitle}
-            onRadioButtonChange={handleShowTitleRadioButtonChange}
-          >
-            Mostrar título
-          </RadioButton>
-          <RadioButton
-            id="radioButtonShowDescription"
-            name="showInfo"
-            checked={!radioButtonShowTitle}
-            onRadioButtonChange={handleShowDescriptionRadioButtonChange}
-          >
-            Mostrar descrição
-          </RadioButton>
-        </div>
+      {!!error && <ToastContainer />}
 
-        <FlashCards>
-          {allCards.map(({ id, title, description, showTitle }) => (
-            <FlashCard
-              key={id}
-              id={id}
-              title={title}
-              description={description}
-              showFlashCardTitle={showTitle}
-              onToggleFlashCard={handleToggleFlashCard}
-            />
-          ))}
-        </FlashCards>
-      </Main>
+      {loading ? (
+        <div className="flex justify-center my-5">
+          <Loading />
+        </div>
+      ) : (
+        <Main>
+          <div className="text-center mb-4">
+            <Button onButtonClick={handleShuffleCards}>Embaralhar cards</Button>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 my-4">
+            <RadioButton
+              id="radioButtonShowTitle"
+              name="showInfo"
+              checked={radioButtonShowTitle}
+              onRadioButtonChange={handleShowTitleRadioButtonChange}
+            >
+              Mostrar título
+            </RadioButton>
+            <RadioButton
+              id="radioButtonShowDescription"
+              name="showInfo"
+              checked={!radioButtonShowTitle}
+              onRadioButtonChange={handleShowDescriptionRadioButtonChange}
+            >
+              Mostrar descrição
+            </RadioButton>
+          </div>
+
+          <FlashCards>
+            {allCards.map(({ id, title, description, showTitle }) => (
+              <FlashCard
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                showFlashCardTitle={showTitle}
+                onToggleFlashCard={handleToggleFlashCard}
+              />
+            ))}
+          </FlashCards>
+        </Main>
+      )}
     </>
   );
 };
