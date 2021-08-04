@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import FlashCardItem from '../components/FlashCardItem';
+import FlashCardForm from '../components/FlashCardForm';
 
 const FlashCardsPage = () => {
   const [error, setError] = useState('');
@@ -50,6 +51,10 @@ const FlashCardsPage = () => {
 
   const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
 
+  const [createMode, setCreateMode] = useState(true);
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedFlashCard, setSelectedFlashCard] = useState(null);
+
   const handleShuffleCards = () => {
     setAllCards(helperShuffleArray(allCards));
   };
@@ -84,6 +89,14 @@ const FlashCardsPage = () => {
     setAllCards(allCards.filter(card => card.id !== flashCardIdToDelete));
   };
 
+  const handleEditFlashCard = flashCardToEdit => {
+    setCreateMode(false);
+    setSelectedTab(1);
+    setSelectedFlashCard(flashCardToEdit);
+  };
+
+  const handleTabSelect = tabIndex => setSelectedTab(tabIndex);
+
   return (
     <>
       <Header>react-flash-cards-v1</Header>
@@ -96,7 +109,7 @@ const FlashCardsPage = () => {
         </div>
       ) : (
         <Main>
-          <Tabs>
+          <Tabs selectedIndex={selectedTab} onSelect={handleTabSelect}>
             <TabList>
               <Tab>Listagem</Tab>
               <Tab>Cadastro</Tab>
@@ -105,14 +118,18 @@ const FlashCardsPage = () => {
 
             <TabPanel>
               {allCards.map(card => (
-                <FlashCardItem key={card.id} onDelete={handleDeleteFlashCard}>
+                <FlashCardItem
+                  key={card.id}
+                  onDelete={handleDeleteFlashCard}
+                  onEdit={handleEditFlashCard}
+                >
                   {card}
                 </FlashCardItem>
               ))}
             </TabPanel>
 
             <TabPanel>
-              <h2>Cadastro Content</h2>
+              <FlashCardForm createMode={createMode} />
             </TabPanel>
 
             <TabPanel>
