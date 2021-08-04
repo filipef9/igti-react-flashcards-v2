@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import FlashCardItem from '../components/FlashCardItem';
 
 const FlashCardsPage = () => {
   const [error, setError] = useState('');
@@ -79,6 +80,10 @@ const FlashCardsPage = () => {
     setAllCards(updatedCards);
   };
 
+  const handleDeleteFlashCard = flashCardIdToDelete => {
+    setAllCards(allCards.filter(card => card.id !== flashCardIdToDelete));
+  };
+
   return (
     <>
       <Header>react-flash-cards-v1</Header>
@@ -99,7 +104,11 @@ const FlashCardsPage = () => {
             </TabList>
 
             <TabPanel>
-              <h2>Listagem Content</h2>
+              {allCards.map(card => (
+                <FlashCardItem key={card.id} onDelete={handleDeleteFlashCard}>
+                  {card}
+                </FlashCardItem>
+              ))}
             </TabPanel>
 
             <TabPanel>
