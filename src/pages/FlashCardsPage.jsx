@@ -1,21 +1,22 @@
+import { useEffect, useState } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import FlashCard from '../components/FlashCard';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import FlashCards from '../components/FlashCards';
 import Button from '../components/Button';
-import { useEffect, useState } from 'react';
-import { helperShuffleArray } from '../helpers/arrayHelpers';
 import RadioButton from '../components/RadioButton';
-import { apiGetAllFlashCards } from '../services/flashcardService';
 import Loading from '../components/Loading';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import FlashCardItem from '../components/FlashCardItem';
 import FlashCardForm from '../components/FlashCardForm';
+
+import { helperShuffleArray } from '../helpers/arrayHelpers';
+import { apiGetAllFlashCards } from '../services/flashcardService';
 
 const FlashCardsPage = () => {
   const [error, setError] = useState('');
