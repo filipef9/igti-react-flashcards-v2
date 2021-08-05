@@ -96,7 +96,13 @@ const FlashCardsPage = () => {
     setSelectedFlashCard(flashCardToEdit);
   };
 
+  const handleNewFlashCard = () => {
+    setCreateMode(true);
+    setSelectedFlashCard(null);
+  };
+
   const handleTabSelect = tabIndex => setSelectedTab(tabIndex);
+
 
   return (
     <>
@@ -130,6 +136,9 @@ const FlashCardsPage = () => {
             </TabPanel>
 
             <TabPanel>
+              <div className="my-4">
+                <Button onButtonClick={handleNewFlashCard}>Novo FlashCard</Button>
+              </div>
               <FlashCardForm createMode={createMode} />
             </TabPanel>
 
